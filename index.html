@@ -93,7 +93,11 @@
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://i.pinimg.com/736x/17/1a/af/171aaffadfedfc4b53f852c64ca3a0c2.jpg') ;
+            background: #000; /* Set a fallback color */
+            background-image: url('https://i.pinimg.com/736x/17/1a/af/171aaffadfedfc4b53f852c64ca3a0c2.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
             position: relative;
             display: flex;
             align-items: center;
