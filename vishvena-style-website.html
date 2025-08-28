@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechVision - Let's Build Tomorrow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #667eea;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #333;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://i.pinimg.com/736x/17/1a/af/171aaffadfedfc4b53f852c64ca3a0c2.jpg') no-repeat center center/cover;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4); /* Dark overlay */
+            z-index: 1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            animation: slideInUp 1s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            animation: slideInUp 1s ease-out 0.4s both;
+            margin: 0 10px 10px 0;
+        }
+
+        .cta-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Common Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Our Division Section */
+        .divisions {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+        #ai-ml-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://ik.imagekit.io/mxqiiw9xc/ai.jpg?updatedAt=1756322288722') no-repeat center center/cover;
+            position: relative;
+        }
+
+        .divisions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .division-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .division-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .division-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4.5rem 2rem;
+            text-align: center;
+        }
+        #drone-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://ik.imagekit.io/mxqiiw9xc/drone.jpg?updatedAt=1756323024814') no-repeat center center/cover;
+        }
+
+        .division-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .division-header h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            
+        }
+        #software-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://i.pinimg.com/736x/1b/ba/c6/1bbac6554042d8f762ae6ceb97f300fd.jpg') no-repeat center center/cover;
+        }
+
+        .division-content {
+            padding: 2rem;
+        }
+        #ip-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://ik.imagekit.io/mxqiiw9xc/intellectual.jpg?updatedAt=1756324199652') no-repeat center center/cover;
+        }
+
+        .division-content p {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        .division-features {
+            list-style: none;
+        }
+
+        .division-features li {
+            padding: 0.5rem 0;
+            color: #555;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .division-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        /* Expertise Area Section */
+        .expertise {
+           padding: 100px 0;
+           background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://i.pinimg.com/736x/fe/44/56/fe4456118e2c95e3416848c659e5337e.jpg') no-repeat center center/cover;
+           background-size: cover;
+           color: white;
+        }
+
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .expertise-item {
+            
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .expertise-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .expertise-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .expertise-item h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .expertise-item p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* About Us Section */
+        .about {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .about-image {
+            background: url('https://ik.imagekit.io/mxqiiw9xc/innovation.jpg?updatedAt=1756370664044') no-repeat center center/cover;
+            height: 300px;
+            background-size: contain;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4); 
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        .about-image > * {
+            position: relative; /* Ensures content sits above overlay */
+            z-index: 1;
+            color: #fff;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #666;
+            font-weight: 500;
+        }
+
+        /* Blog Section */
+        .blog {
+            padding: 100px 0;
+            background: #f8f9fa;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .blog-image {
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        #ai-healthcare-image-overlay {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://ik.imagekit.io/mxqiiw9xc/health.jpg?updatedAt=1756397848090') no-repeat center center/cover;
+        }
+
+        #ai-healthcare-image-overlay span {
+            position: relative;
+            z-index: 1; /* Ensures text is above the overlay */
+        }
+
+        .blog-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="blog-pattern" width="30" height="30" patternUnits="userSpaceOnUse"><circle cx="15" cy="15" r="2" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23blog-pattern)"/></svg>');
+        }
+        #smart-agriculture-image-overlay {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://ik.imagekit.io/mxqiiw9xc/agri.jpg?updatedAt=1756398059616') no-repeat center center/cover;
+        }
+        #defense-tech-image-overlay {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://ik.imagekit.io/mxqiiw9xc/defence.jpg?updatedAt=1756399154900') no-repeat center center/cover;
+        }
+        #fleet-management-image-overlay {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://ik.imagekit.io/mxqiiw9xc/fleet2.jpg?updatedAt=1756399560682') no-repeat center center/cover;
+        }
+        #ip-protection-image-overlay {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://i.pinimg.com/736x/5c/27/38/5c2738c74e53ff8e206e25ad3da7471b.jpg') no-repeat center center/cover;
+        }
+        #industry-4-image-overlay {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://i.pinimg.com/1200x/26/c2/fa/26c2fa2b015dbb07101f86c0e406e7fb.jpg') no-repeat center center/cover;
+        }
+
+        .blog-content {
+            padding: 2rem;
+        }
+
+        .blog-date {
+            color: #667eea;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+
+        .blog-excerpt {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .read-more {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #764ba2;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: white;
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+        }
+
+        .contact-info h3 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .contact-form {
+            background: #f8f9fa;
+            padding: 3rem;
+            border-radius: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: #667eea;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: #666;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.98);
+                flex-direction: column;
+                padding: 1rem 0;
+                box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .divisions-grid,
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .expertise-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .container {
+                padding: 0 1rem;
+            }
+
+            .section-title h2 {
+                font-size: 2rem;
+            }
+
+            
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">TechVision</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#divisions">Our Division</a></li>
+                <li><a href="#expertise">Expertise Area</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+            <button class="mobile-menu-btn">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Let's Build Tomorrow</h1>
+            <p>Discover innovation at TechVision! We encourage you to Think Big too! Our end-to-end services, domains, and areas expertise in cutting edge tech makes us your ideal partner.</p>
+            <a href="#divisions" class="cta-button">Explore Our Divisions</a>
+            <a href="#contact" class="cta-button">Get In Touch</a>
+        </div>
+    </section>
+
+    <!-- Our Division Section -->
+    <section id="divisions" class="divisions fade-in">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Divisions</h2>
+                <p>We thrive on tailoring cutting-edge strategies to provide clients with the best solutions across multiple specialized divisions.</p>
+            </div>
+            <div class="divisions-grid">
+                <div class="division-card">
+                    <div id="ai-ml-header" class="division-header">
+                        <div class="division-icon">🤖</div>
+                            <h3>AI & Machine Learning</h3>
+                            <p>Artificial Intelligence Solutions</p>
+                    </div>
+                    <div class="division-content">
+                        <p>At TechVision, we are at the forefront of innovation, utilizing Artificial Intelligence to transform key sectors, including Agriculture, Fleet Management, Health, and Defence.</p>
+                        <ul class="division-features">
+                            <li>Computer Vision & Image Processing</li>
+                            <li>Natural Language Processing</li>
+                            <li>Predictive Analytics</li>
+                            <li>Deep Learning Models</li>
+                            <li>AI-Powered Automation</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="division-card">
+                    <div id="drone-header" class="division-header">
+                        <div class="division-icon">🚁</div>
+                            <h3>Drone Technology</h3>
+                            <p>Aerial Innovation Division</p>
+                    </div>
+                    <div class="division-content">
+                        <p>TechVision's Drone Division: Pushing Boundaries in Aerial Tech. Our expertise in IoT, AI, and advanced hardware drives innovation for agriculture, logistics, and emergency response.</p>
+                        <ul class="division-features">
+                            <li>Agricultural Monitoring Drones</li>
+                            <li>Surveillance & Security Systems</li>
+                            <li>Logistics & Delivery Solutions</li>
+                            <li>Emergency Response Drones</li>
+                            <li>Custom Drone Development</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="division-card">
+                    <div id="software-header" class="division-header">
+                       <div class="division-icon">💻</div>
+                            <h3>Software Solutions</h3>
+                            <p>Custom Development Division</p>
+                    </div>
+                    <div class="division-content">
+                        <p>Our Software Division plays a pivotal role in reshaping Agriculture, Fleet Management, Health, and Defence through innovative software solutions that drive efficiency and precision.</p>
+                        <ul class="division-features">
+                            <li>Enterprise Software Development</li>
+                            <li>Mobile App Development</li>
+                            <li>Web Applications</li>
+                            <li>Cloud Solutions</li>
+                            <li>System Integration</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="division-card">
+                    <div id="ip-header" class="division-header">
+                        <div class="division-icon">⚖️</div>
+                            <h3>Intellectual Property</h3>
+                            <p>IP Services Division</p>
+                    </div>
+                    <div class="division-content">
+                        <p>TechVision specializes in Intellectual Property services, safeguarding businesses' innovations worldwide. Our tailored solutions empower clients to maximize the value of their intangible assets.</p>
+                        <ul class="division-features">
+                            <li>Patent Registration & Search</li>
+                            <li>Trademark Protection</li>
+                            <li>Copyright Services</li>
+                            <li>IP Strategy Consulting</li>
+                            <li>Licensing Agreements</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise Area Section -->
+    <section id="expertise" class="expertise fade-in">
+        <div class="container">
+            <div class="section-title">
+                <h2>Expertise Areas</h2>
+                <p>Our comprehensive expertise spans across multiple cutting-edge domains, delivering innovative solutions that transform industries.</p>
+            </div>
+            <div class="expertise-grid">
+                <div class="expertise-item">
+                    <div class="expertise-icon">🏥</div>
+                    <h4>Healthcare Solutions</h4>
+                    <p>AI-powered diagnostic systems, telemedicine platforms, and health monitoring solutions that revolutionize patient care and medical operations.</p>
+                </div>
+                
+                <div class="expertise-item">
+                    <div class="expertise-icon">🌾</div>
+                    <h4>Smart Agriculture</h4>
+                    <p>Precision farming technologies, crop monitoring systems, and agricultural automation solutions that optimize yield and resource management.</p>
+                </div>
+                
+                <div class="expertise-item">
+                    <div class="expertise-icon">🚛</div>
+                    <h4>Fleet Management</h4>
+                    <p>Intelligent transportation systems, vehicle tracking, route optimization, and logistics management solutions for efficient fleet operations.</p>
+                </div>
+                
+                <div class="expertise-item">
+                    <div class="expertise-icon">🛡️</div>
+                    <h4>Defense & Security</h4>
+                    <p>Advanced surveillance systems, threat detection algorithms, and security automation solutions for defense and public safety applications.</p>
+                </div>
+                
+                <div class="expertise-item">
+                    <div class="expertise-icon">📹</div>
+                    <h4>AI Cameras</h4>
+                    <p>Intelligent vision systems with real-time analytics, object detection, and automated monitoring capabilities for various applications.</p>
+                </div>
+                
+                <div class="expertise-item">
+                    <div class="expertise-icon">🛣️</div>
+                    <h4>Smart Roads</h4>
+                    <p>Infrastructure automation, traffic management systems, and smart city solutions that enhance urban mobility and safety.</p>
+                </div>
+                
+                <div class="expertise-item">
+                    <div class="expertise-icon">📡</div>
+                    <h4>IoT Solutions</h4>
+                    <p>Connected device ecosystems, sensor networks, and data analytics platforms that enable smart environments and automation.</p>
+                </div>
+                
+                <div class="expertise-item">
+                    <div class="expertise-icon">💬</div>
+                    <h4>DreamTalk Services</h4>
+                    <p>Advanced communication technologies, chatbot development, and conversational AI solutions for enhanced customer engagement.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="about fade-in">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Where AI Meets Excellence</h2>
+                    <p>At TechVision, we are dedicated to pushing the boundaries of AI applications, contributing to a future where technology creates sustainable solutions and secures our world.</p>
+                    <p>Our commitment lies in delivering cutting-edge solutions that optimize operations, improve efficiency, and drive progress in vital domains. We leverage advanced technologies to catalyze transformative changes across industries.</p>
+                    <p>Join us as we pioneer advancements that shape the way industries operate and evolve. TechVision - Where innovation meets excellence.</p>
+                </div>
+                <div class="about-image">
+                    
+                </div>
+            </div>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">Happy Clients</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Expert Team</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Support Available</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="blog fade-in">
+        <div class="container">
+            <div class="section-title">
+                <h2>Latest Insights</h2>
+                <p>Stay updated with our latest thoughts, innovations, and industry insights on cutting-edge technologies and solutions.</p>
+            </div>
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <div id="ai-healthcare-image-overlay">
+                        <span>AI in Healthcare</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-date">March 15, 2024</div>
+                        <h3 class="blog-title">Revolutionizing Healthcare with AI-Powered Diagnostics</h3>
+                        <p class="blog-excerpt">Explore how artificial intelligence is transforming medical diagnostics, improving accuracy, and enabling early detection of diseases through advanced machine learning algorithms.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <div id="smart-agriculture-image-overlay">
+                           <span>Smart Agriculture</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-date">March 10, 2024</div>
+                        <h3 class="blog-title">The Future of Farming: IoT and Drone Technology</h3>
+                        <p class="blog-excerpt">Discover how Internet of Things sensors and drone technology are revolutionizing agriculture, optimizing crop yields, and promoting sustainable farming practices.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <div id="defense-tech-image-overlay">
+                        <span>Defense Tech</span>
+                    </div>
+                </div>
+                    <div class="blog-content">
+                        <div class="blog-date">March 5, 2024</div>
+                        <h3 class="blog-title">Advanced Surveillance Systems for Modern Defense</h3>
+                        <p class="blog-excerpt">Learn about cutting-edge surveillance technologies and AI-powered security solutions that are enhancing defense capabilities and public safety measures.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <div id="fleet-management-image-overlay">
+                        <span>Fleet Management</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-date">February 28, 2024</div>
+                        <h3 class="blog-title">Smart Fleet Management: Optimizing Transportation</h3>
+                        <p class="blog-excerpt">Understand how intelligent fleet management systems are reducing costs, improving efficiency, and enhancing safety in transportation and logistics.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <div id="ip-protection-image-overlay">
+                            <span>IP Protection</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-date">February 20, 2024</div>
+                        <h3 class="blog-title">Protecting Innovation: IP Strategy in Tech</h3>
+                        <p class="blog-excerpt">Essential insights into intellectual property protection strategies for technology companies, patent filing processes, and maximizing IP portfolio value.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <div id="industry-4-image-overlay">
+                            <span>Industry 4.0</span>
+                        </div>
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-date">February 15, 2024</div>
+                        <h3 class="blog-title">Industry 4.0: The Digital Transformation Revolution</h3>
+                        <p class="blog-excerpt">Explore how Industry 4.0 technologies are reshaping manufacturing, supply chains, and business operations through automation and data analytics.</p>
+                        <a href="#" class="read-more">Read More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact fade-in">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get In Touch</h2>
+                <p>Ready to transform your business with cutting-edge technology? Let's discuss how we can help you achieve your goals.</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h4>Address</h4>
+                            <p>Tech Hub, Innovation District<br>Silicon Valley, CA 94043</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p>+1 (555) 123-4567<br>+1 (555) 987-6543</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>info@techvision.com<br>support@techvision.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">🌐</div>
+                        <div>
+                            <h4>Website</h4>
+                            <p>www.techvision.com<br>Follow us on social media</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Send us a Message</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="company">Company Name</label>
+                            <input type="text" id="company" name="company" placeholder="Enter your company name">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="service">Service Interest</label>
+                            <select id="service" name="service" style="width: 100%; padding: 1rem; border: 2px solid #e0e0e0; border-radius: 10px; font-size: 1rem;">
+                                <option value="">Select a service</option>
+                                <option value="ai-ml">AI & Machine Learning</option>
+                                <option value="drone-tech">Drone Technology</option>
+                                <option value="software">Software Solutions</option>
+                                <option value="ip-services">Intellectual Property</option>
+                                <option value="iot">IoT Solutions</option>
+                                <option value="consulting">Consulting</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Tell us about your project requirements..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TechVision</h3>
+                    <p>Building tomorrow's technology today. We are at the forefront of innovation, delivering cutting-edge solutions across multiple industries.</p>
+                    <p><strong>Think Big with TechVision!</strong></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Our Divisions</h3>
+                    <a href="#divisions">AI & Machine Learning</a>
+                    <a href="#divisions">Drone Technology</a>
+                    <a href="#divisions">Software Solutions</a>
+                    <a href="#divisions">Intellectual Property</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Expertise Areas</h3>
+                    <a href="#expertise">Healthcare Solutions</a>
+                    <a href="#expertise">Smart Agriculture</a>
+                    <a href="#expertise">Defense & Security</a>
+                    <a href="#expertise">Fleet Management</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="#about">About Us</a>
+                    <a href="#blog">Latest Blog</a>
+                    <a href="#contact">Contact Us</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>📍 Tech Hub, Innovation District</p>
+                    <p>📞 +1 (555) 123-4567</p>
+                    <p>✉️ info@techvision.com</p>
+                    <p>🌐 www.techvision.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TechVision. All rights reserved. | Privacy Policy | Terms of Service | Cookie Policy</p>
+                <p>TechVision - Let's Build Tomorrow Together!</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Close mobile menu if open
+                    document.querySelector('.nav-links').classList.remove('active');
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar background change on scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+
+        // Division card interactions
+        document.querySelectorAll('.division-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Expertise item hover effects
+        document.querySelectorAll('.expertise-item').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.transform = 'translateY(-5px) scale(1.05)';
+                item.style.background = 'rgba(255, 255, 255, 0.25)';
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'translateY(0) scale(1)';
+                item.style.background = 'rgba(255, 255, 255, 0.1)';
+            });
+        });
+
+        // Blog card hover effects
+        document.querySelectorAll('.blog-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Stats counter animation
+        function animateStats() {
+            const stats = document.querySelectorAll('.stat-number');
+            stats.forEach(stat => {
+                const finalValue = stat.textContent;
+                const numericValue = parseInt(finalValue.replace(/\D/g, ''));
+                const suffix = finalValue.replace(/\d/g, '');
+                
+                let current = 0;
+                const increment = numericValue / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= numericValue) {
+                        stat.textContent = finalValue;
+                        clearInterval(timer);
+                    } else {
+                        stat.textContent = Math.floor(current) + suffix;
+                    }
+                }, 30);
+            });
+        }
+
+        // Trigger stats animation when section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.stats-grid');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(this);
+            const data = Object.fromEntries(formData);
+            
+            // Show success message
+            alert('Thank you for your message! We will get back to you soon.');
+            
+            // Reset form
+            this.reset();
+        });
+
+        // Add active class to current navigation item
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Add CSS for active navigation
+        const style = document.createElement('style');
+        style.textContent = `
+            .nav-links a.active {
+                color: #667eea !important;
+            }
+            .nav-links a.active::after {
+                width: 100% !important;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
+                
